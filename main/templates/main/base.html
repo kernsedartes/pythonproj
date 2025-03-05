@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load goods_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +59,7 @@
                                 <li><a class="dropdown-item  text-white" href="carts/cart.html">Корзина</a></li>
                                 <li><a class="dropdown-item  text-white" href="users/profile.html">Личный кабинет</a>
                                 </li>
-                                <li><a class="dropdown-item  text-white" href="#">Админ панель</a></li>
+                                <li><a class="dropdown-item  text-white" href="{% url "admin:index" %}">Админ панель</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -88,16 +88,13 @@
                             height="16">
                     </button>
                     <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Все товары</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:" %}">Кухня</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:" %}">Спальня</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:" %}">Гостинная</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:" %}">Офис</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:" %}">Фурнитура</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:" %}">Декор</a></li>
+                        {% tag_categories as categories %}
+                        {% for category in categories %}
+                            <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">{{category.name}}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
-                <!-- Значек корзины, вызывает модальное окно -->
+                <!-- Значок корзины, вызывает модальное окно -->
                 <div>
                     <button type="button" class="btn btn-dark btn-secondary d-flex" id="modalButton"
                         aria-expanded="false">
